@@ -1,0 +1,66 @@
+<div class="header">
+  <app-action 
+    [title]="'Cadastro de Documento'"
+    (close)="onClose()">
+  </app-action>
+</div>
+
+<div class="topAction"></div>
+
+<div class="demo-tab-content" style="margin: 25px">
+
+  <mat-form-field class="example-full-width">
+    <mat-select placeholder="Tipo de Documento" [(ngModel)]="document.typeDocument.id">
+      <mat-option *ngFor="let doc of documents" [value]="doc.id">
+        {{ doc.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <br />
+
+  <mat-form-field class="example-full-width">
+    <input matInput [matDatepicker]="picker2" [(ngModel)]="document.issueDate" placeholder="Data de Emissão" readonly>
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+
+  <br />
+
+  <mat-form-field class="example-full-width">
+    <input matInput [matDatepicker]="picker3" [(ngModel)]="document.expirationDate" placeholder="Expira em" readonly>
+    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+    <mat-datepicker #picker3></mat-datepicker>
+  </mat-form-field>
+
+  <br />
+
+  <mat-form-field class="example-full-width">
+    <input matInput [(ngModel)]="document.validity" placeholder="Validade (mês)" type="number" value="">
+  </mat-form-field>
+
+  <br />
+
+  <span class="dis">Arquivo:</span>
+  <mat-card>
+    <div *ngIf="fileExists">
+      <mat-chip-list>
+        <mat-chip color="primary" selected="true" matTooltip="Carregar Arquivo" (click)="onDownload(document.id, document.fileName)" style="cursor: pointer">{{document.fileName}}</mat-chip> <mat-icon matTooltip="Apagar Arquivo" (click)="onDeleteFile()" style="color: #CD0000; cursor: pointer">cancel</mat-icon>
+      </mat-chip-list>
+    </div>
+    <div *ngIf="!fileExists">
+     <mat-icon matTooltip="Voltar Arquivo" *ngIf="fileBack" (click)="onFileBack()" style="color: green; cursor: pointer">reply</mat-icon>&nbsp;
+     <label for="file">Escolha o Arquivo</label>&nbsp;
+     <input type="file" id="file" (change)="handleFileInput($event.target.files)" />
+    </div>
+  </mat-card>
+
+</div>
+
+<div style="padding: 15px">
+  <div style="text-align: right; margin-right: 15px">
+    <button mat-raised-button color="primary" type="button" (click)="onSave()">
+        Salvar
+    </button>
+  </div>
+</div>

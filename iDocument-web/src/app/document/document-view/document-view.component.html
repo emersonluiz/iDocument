@@ -1,0 +1,46 @@
+<div class="header">
+  <app-action 
+    [title]="'Detalhes do Documento'"
+    (close)="onClose()">
+  </app-action>
+</div>
+
+<div class="topAction"></div>
+
+<div class="demo-tab-content" style="margin: 25px">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Tipo de Documento" disabled value="{{document?.typeDocument.name}}">
+  </mat-form-field>
+
+  <br />
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Data de Emissão" disabled value="{{document?.issueDate !== null ? (document?.issueDate | date:'dd/MM/yyyy') : ' '}}">
+  </mat-form-field>
+
+  <br />
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Expira em" disabled value="{{document?.expirationDate  !== null ? (document?.expirationDate | date:'dd/MM/yyyy') : ' '}}">
+  </mat-form-field>
+
+  <br />
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Validade (mês)" disabled value="{{document?.validity !== null ? document?.validity : ' '}}">
+  </mat-form-field>
+
+  <br />
+
+  <span class="dis">Arquivo:</span>
+    <mat-card>
+      <div *ngIf="document.fileName !== '' && document.fileName !== null">
+        <mat-chip-list>
+          <mat-chip color="primary" selected="true" matTooltip="Carregar Arquivo" (click)="onDownload(document.id, document.fileName)" style="cursor: pointer">{{document.fileName}}</mat-chip>
+        </mat-chip-list>
+      </div>
+      <div class="dis" *ngIf="document.fileName === '' || document.fileName === null">
+        Nenhum arquivo foi adicionado.
+      </div>
+    </mat-card>
+</div>
